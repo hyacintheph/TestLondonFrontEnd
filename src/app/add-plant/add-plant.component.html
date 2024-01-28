@@ -1,0 +1,42 @@
+<!-- Modal -->
+<div class="modal fade" id="addPlantModal" tabindex="-1" aria-labelledby="addPlantModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="fw-bold modal-title fs-5" id="addPlantModalLabel">Ajouter une nouvelle plante</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="addPlantForm" (ngSubmit)="addNewPlant(addPlantForm.value)" [class.error]="!addPlantForm.valid && addPlantForm.touched">
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nom</label>
+            <input [formControl]="name" class="form-control" type="text" name="name" id="name" placeholder="Nom de la plante">
+          </div>
+          <div class="mb-3">
+            <label for="type" class="form-label">Espèce</label>
+            <input [formControl]="species" class="form-control" type="text" name="type" id="type" placeholder="Espèce de la plante" required>
+          </div>
+          <div class="mb-3">
+            <label for="buy-date" class="form-label">Date d'achat</label>
+            <input [formControl]="dateCreation" class="form-control" type="date" name="buy-date" id="buy-date" placeholder="Date d'achat" required>
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input (change)="selectFile($event)" class="form-control" type="file" name="file" id="image" placeholder="Image de la plante" required>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button  class="btn btn-success">
+          <span *ngIf="loading">
+            <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+          <span role="status">Enregistrement en cours...</span>
+          </span>
+          <span *ngIf="!loading">Enregistrer</span>
+        </button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-toast (closeToast)="closeToast($event)" [message]="message" *ngIf="showToast"></app-toast>

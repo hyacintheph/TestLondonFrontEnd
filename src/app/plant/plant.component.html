@@ -1,0 +1,20 @@
+<div class="col">
+  <div class="card h-100">
+    <img [src]="plant.imagePath" height="200"  class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{plant.name}}</h5>
+      <h6>{{plant.species}}</h6>
+      <p>Acheté le {{plant.creationDate | date}}</p>
+      <div>
+        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
+                (click)="emitPlantData(plant.name+';'+plant.imagePath+';'+plant.id)"
+                data-bs-target="#waterNeedModal">Besoin</button>
+        <button class="btn btn-outline-success mx-2" (click)="emitPlantData(plant.name+';'+plant.imagePath+';'+plant.id)"
+                data-bs-toggle="modal" data-bs-target="#moreModal">Arroser</button>
+      </div>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Besoin : {{plant.plantNeed.quantity}} Litre, {{plant.plantNeed.frequency}} fois / Jour</small>
+    </div>
+  </div>
+</div>

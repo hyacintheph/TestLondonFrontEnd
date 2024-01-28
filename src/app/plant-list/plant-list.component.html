@@ -1,0 +1,23 @@
+<div class="container-fluid mt-5">
+  <div class="d-flex justify-content-center mt-5">
+    <input class="form-control me-2 search" type="search" placeholder="Rechercher une plante" aria-label="Search">
+  </div>
+  <div class="d-flex flex-column flex-md-row justify-content-between mt-5 g-4">
+    <h3 class="fw-bold">Mes plantes</h3>
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addPlantModal">Ajouter</button>
+  </div>
+  <div *ngIf="plants && plants.length > 0" class="row row-cols-1 row-cols-md-6 g-4 mt-5">
+    <app-plant  *ngFor="let plant of plants" [plant]="plant"
+                (selectedPlantData)="setSelectedPlantData($event)"></app-plant>
+  </div>
+  <div *ngIf="plants && plants.length === 0" class="d-flex justify-content-center">
+    <h4>Aucune plantes enregistrées !</h4>
+  </div>
+</div>
+<app-add-plant></app-add-plant>
+<app-water-need [selectedPlantName]="selectedPlantName"
+                [selectedPlantImagePath]="selectedPlantImagePath"
+                [selectedPlantId]="selectedPlantId"></app-water-need>
+<app-water-plant [selectedPlantName]="selectedPlantName"
+                 [selectedPlantImagePath]="selectedPlantImagePath"
+                 [selectedPlantId]="selectedPlantId"></app-water-plant>

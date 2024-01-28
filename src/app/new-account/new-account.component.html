@@ -1,0 +1,53 @@
+<div class="account d-flex flex-column justify-content-center align-items-center align-content-center relative">
+  <div class="shadow p-4">
+    <div class="d-flex justify-content-center"><img src="assets/images/logo.jpeg" alt="PlantManagement"></div>
+    <h3 class="fw-bold">Créer un compte</h3>
+    <form [formGroup]="createAccountForm"
+          [class.error]="!createAccountForm.valid && createAccountForm.touched"
+          (ngSubmit)="createAccount(createAccountForm.value)"
+          class="account-form pt-3">
+      <div class="mb-3">
+        <label class="form-label" for="name">Nom complet</label>
+        <input [formControl]="createAccountForm.controls['name']" class="form-control" type="name" name="name" placeholder="Nom complet" id="name">
+        <span *ngIf="createAccountForm.controls['name'].hasError('required') && name.touched" class="text-danger small">Le nom est requis !</span>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input [formControl]="createAccountForm.controls['email']" class="form-control" type="email"  name="email" placeholder="Votre adresse email" id="email">
+        <div class="d-flex flex-column">
+          <span *ngIf="createAccountForm.controls['email'].hasError('required') && email.touched" class="text-danger small">L'adresse mail est requis !</span>
+          <span *ngIf="createAccountForm.controls['email'].hasError('invalidEmail') && email.touched" class="text-danger small">Adresse mail invalide !</span>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="password">Mot de passe</label>
+        <input [formControl]="createAccountForm.controls['password']" class="form-control" type="password" name="password" placeholder="Mot de passe" id="password">
+        <div class="d-flex flex-column">
+          <span *ngIf="createAccountForm.controls['password'].hasError('required') && password.touched" class="text-danger small">Le mot de passe est requis !</span>
+          <span *ngIf="!passwordMatches && password.touched" class="text-danger small">Les mots de passes ne correspondent pas !</span>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="confirm-password">Confirmer le mot de passe</label>
+        <input [formControl]="createAccountForm.controls['confirmPassword']" class="form-control" type="password" name="confirmPassword" placeholder="Confirmer le mot de passe"
+               id="confirm-password" >
+        <span *ngIf="createAccountForm.controls['confirmPassword'].hasError('required') && confirmPassword.touched" class="text-danger small">Confirmation de mot de passe requis !</span>
+      </div>
+      <div>
+        <button  class="btn btn-primary">
+          <span *ngIf="loading">
+            <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+          <span role="status">Creation en cours...</span>
+          </span>
+          <span *ngIf="!loading">Creer mon compte</span>
+        </button>
+      </div>
+    </form>
+    <div class="p-3 d-flex justify-content-center">
+      <a [routerLink]="['/login']" class="link-dark">Connexion</a>
+    </div>
+  </div>
+  <app-toast (closeToast)="closeToast($event)" [message]="message" *ngIf="showToast"></app-toast>
+
+</div>
+
